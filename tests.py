@@ -1,6 +1,5 @@
-# tests/test_app.py
 import pytest
-from keep_alive import app
+from app import app
 
 @pytest.fixture
 def client():
@@ -9,7 +8,7 @@ def client():
         yield client
 
 def test_home_page(client):
-    """Test that the home page loads correctly."""
+    """Home page loads correctly."""
     response = client.get("/")
     assert response.status_code == 200
     assert b"Flask Calculator" in response.data
@@ -50,13 +49,32 @@ def test_division(client):
     assert response.status_code == 200
     assert b"4.0" in response.data
 
+def test_division_by_zero(client):
+    response = client.post("/calculate", data={
+        "number_one": "10",
+        "number_two": "0",
+        "operation": "divide"
+    })
+    assert response.status_code == 200
+    assert b"Cannot divide by zero" in response.data
+
 def test_invalid_operation(client):
-    """Test that an invalid operation returns the page without result."""
+    """Invalid operation returns the page without result."""
     response = client.post("/calculate", data={
         "number_one": "10",
         "number_two": "5",
         "operation": "mod"
     })
     assert response.status_code == 200
-    # Should not contain any numeric result
+    # Should not contain numeric result
     assert b"result=" not in response.data
+
+def test_invalid_input(client):
+    """Non-numeric input returns an error message."""
+    response = client.post("/calculate", data={
+        "number_one": "abc",
+        "number_two": "5",
+        "operation": "add"
+    })
+    assert response.status_code == 200
+    assert b"Invalid input" in response.data
