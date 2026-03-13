@@ -15,8 +15,6 @@ WORKDIR /app
 
 COPY --from=builder /usr/local/lib/python3.10 /usr/local/lib/python3.10
 COPY --from=builder /usr/local/bin /usr/local/bin
-
 COPY . .
 EXPOSE 3000
-
 CMD ["python", "app.py"]
