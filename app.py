@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request
 
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def main():
     return render_template("calculator.html")
+
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
@@ -33,14 +36,16 @@ def calculate():
 
     return render_template("calculator.html", result=result)
 
+
 @app.errorhandler(404)
 def not_found(error):
     return render_template("404.html", error=error), 404
+
 
 @app.errorhandler(500)
 def server_error(error):
     return render_template("500.html", error=error), 500
 
-# Only run server when executed directly
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000, debug=True)

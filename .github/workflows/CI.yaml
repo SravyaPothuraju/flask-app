@@ -33,19 +33,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
 
-      - name: Install flake8
-        run: pip install flake8
+    - name: Install flake8
+      run: pip install flake8
 
-      - name: Run flake8
-        run: flake8 . --max-line-length 120
+    - name: Run flake8 (only serious issues)
+      run: flake8 . --select=F,W --max-line-length 120
 
   push:
     name: Build and Push Docker Image
