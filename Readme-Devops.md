@@ -147,6 +147,7 @@ Install the required tools:
 * eksctl
 
 Create the Kubernetes cluster on AWS using EKS and connect kubectl to it.
+kubectl craete cluster --name <cluster-name> --region us-east-1
 
 This enables management of the Kubernetes cluster from the local machine.
 
