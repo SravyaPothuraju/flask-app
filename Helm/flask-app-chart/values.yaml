@@ -8,7 +8,7 @@ image:
   repository: sravyap215/flaskapp
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "23035988311"
+  tag: "23229751350"
 
 ingress:
   enabled: false
